@@ -1,0 +1,33 @@
+{
+  "name": "ausens-music-tg",
+  "version": "0.0.2",
+  "description": "TELEGRAM BOT FOR DOWNLOADING MUSIC(TELEGRAF)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Islom4ik/AusensBot.git"
+  },
+  "keywords": [
+    "telegram-bot",
+    "telegram-music-bot",
+    "node-js"
+  ],
+  "author": "OG_DIMES",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Islom4ik/AusensBot/issues"
+  },
+  "homepage": "https://github.com/Islom4ik/AusensBot#readme",
+  "dependencies": {
+    "canvas": "^2.11.0",
+    "dotenv": "^16.0.3",
+    "mongodb": "^4.13.0",
+    "spotify-finder": "^2.1.1",
+    "telegraf": "^4.11.2",
+    "youtube-dl-exec": "^2.1.11",
+    "youtubei": "^1.1.1"
+  }
+}
