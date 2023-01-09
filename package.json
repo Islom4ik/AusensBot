@@ -25,7 +25,7 @@
     "canvas": "^2.11.0",
     "dotenv": "^16.0.3",
     "mongodb": "^4.13.0",
-    "spotify-finder": "^2.1.1",
+    "spotify-get": "^1.1.10",
     "telegraf": "^4.11.2",
     "youtube-dl-exec": "^2.1.11",
     "youtubei": "^1.1.1"

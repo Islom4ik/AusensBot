@@ -47,14 +47,17 @@ bot.on("text", async (ctx) => {
                 await ctx.tg.forwardMessage(ctx.chat.id, -1001837066864, downloaded.music_id)
             }
         } else {
-            const params = {
+            let searchtxtfdb = await searchedb.findOne({user_id: ctx.from.id})
+            let msg = await ctx.tg.deleteMessage(ctx.chat.id, searchtxtfdb.searched).catch(err => {
+                return
+            })
+            const serchimg = createsearch(ctx.message.text);
+            const data = await client.sclient.search({
                 q: ctx.message.text,
-                limit: 10,
-            }
-            let serchimg = createsearch(ctx.message.text);
-            await client.search(params)
-            .then(async data => {    
-                await ctx.replyWithPhoto({source: serchimg.toBuffer()}, {protect_content: true, parse_mode: "HTML", reply_markup: {inline_keyboard: [
+                type: "track",
+                limit: 10
+            });
+            let serchedinf = await ctx.replyWithPhoto({source: serchimg.toBuffer()}, {protect_content: true, parse_mode: "HTML", reply_markup: {inline_keyboard: [
                     [Markup.button.callback(`${data.tracks.items[0].artists[0].name} - ${data.tracks.items[0].name}`, 'b1')],
                     [Markup.button.callback(`${data.tracks.items[1].artists[0].name} - ${data.tracks.items[1].name}`, 'b2')],
                     [Markup.button.callback(`${data.tracks.items[2].artists[0].name} - ${data.tracks.items[2].name}`, 'b3')],
@@ -66,9 +69,10 @@ bot.on("text", async (ctx) => {
                     [Markup.button.callback(`${data.tracks.items[8].artists[0].name} - ${data.tracks.items[8].name}`, 'b9')],
                     [Markup.button.callback(`${data.tracks.items[9].artists[0].name} - ${data.tracks.items[9].name}`, 'b10')],
                     [Markup.button.url('- AusenS -', 'https://t.me/AusensBot')]
-                ]}})
+            ]}})
+            await searchedb.findOneAndUpdate({user_id: ctx.from.id}, {$set: {searched: serchedinf.message_id}})
                 
-                let userindb = await searchedb.findOne({user_id: ctx.from.id})
+            let userindb = await searchedb.findOne({user_id: ctx.from.id})
                 if (userindb == null) {
                     return await searchedb.insertOne(
                         {
@@ -147,7 +151,6 @@ bot.on("text", async (ctx) => {
                         }}
                     )
                 }
-            }) 
         }   
     }catch(e) {
         console.error(e);
